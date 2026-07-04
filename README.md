@@ -2,6 +2,10 @@
 
 一个 Windows 置顶中文悬浮窗，用 Codex app-server 和本地 session 记录读取真实数据。
 
+![Codex 用量悬浮窗效果图](assets/dashboard-preview.svg)
+
+> 上图使用匿名示例数据，实际运行时会读取本机 Codex 的真实用量和当前线程上下文。
+
 ## 启动
 
 双击：

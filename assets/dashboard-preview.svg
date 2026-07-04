@@ -1,0 +1,67 @@
+<svg width="960" height="560" viewBox="0 0 960 560" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="960" y2="560" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#14211f"/>
+      <stop offset="0.48" stop-color="#11181b"/>
+      <stop offset="1" stop-color="#0d1114"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="220" y1="0" x2="740" y2="420" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#27f2c3"/>
+      <stop offset="1" stop-color="#3a8cff"/>
+    </linearGradient>
+    <filter id="shadow" x="167" y="77" width="626" height="426" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+      <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+      <feOffset dy="18"/>
+      <feGaussianBlur stdDeviation="28"/>
+      <feComposite in2="hardAlpha" operator="out"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.55 0"/>
+      <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_1_1"/>
+      <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_1_1" result="shape"/>
+    </filter>
+  </defs>
+
+  <rect width="960" height="560" fill="url(#bg)"/>
+  <path d="M0 438C116 402 195 411 305 443C462 489 543 520 714 464C818 430 894 418 960 431V560H0V438Z" fill="#182a2d" opacity="0.42"/>
+  <path d="M0 66C144 115 279 88 388 57C529 18 640 14 794 68C855 89 909 96 960 86V0H0V66Z" fill="#193631" opacity="0.36"/>
+
+  <text x="480" y="72" text-anchor="middle" fill="#EAF7F3" font-family="Microsoft YaHei UI, Segoe UI, sans-serif" font-size="30" font-weight="700">Codex 用量悬浮窗</text>
+  <text x="480" y="106" text-anchor="middle" fill="#8FA1A7" font-family="Microsoft YaHei UI, Segoe UI, sans-serif" font-size="15">紧凑置顶表盘 · 示例数据 · 不包含真实账号信息</text>
+
+  <g filter="url(#shadow)">
+    <rect x="250" y="132" width="460" height="300" rx="14" fill="#101619" opacity="0.96"/>
+    <rect x="250.5" y="132.5" width="459" height="299" rx="13.5" stroke="#37D8BD" stroke-opacity="0.42"/>
+
+    <text x="273" y="166" fill="#F4FBF8" font-family="Microsoft YaHei UI, Segoe UI, sans-serif" font-size="20" font-weight="700">Codex 用量</text>
+    <text x="594" y="164" fill="#9DEBD8" font-family="Microsoft YaHei UI, Segoe UI, sans-serif" font-size="14" font-weight="700">已连接 真实</text>
+    <rect x="667" y="148" width="22" height="20" rx="5" fill="#243139" stroke="#3B4A52"/>
+    <text x="678" y="163" text-anchor="middle" fill="#DDE6EA" font-family="Segoe UI, sans-serif" font-size="13" font-weight="700">x</text>
+
+    <text x="273" y="189" fill="#91A0A6" font-family="Microsoft YaHei UI, Segoe UI, sans-serif" font-size="13">demo@example.com · Pro</text>
+
+    <text x="273" y="221" fill="#91A0A6" font-family="Microsoft YaHei UI, Segoe UI, sans-serif" font-size="14" font-weight="700">5小时</text>
+    <text x="443" y="221" text-anchor="end" fill="#EEF5F7" font-family="Microsoft YaHei UI, Segoe UI, sans-serif" font-size="15" font-weight="700">72% 剩余</text>
+    <rect x="273" y="232" width="170" height="7" rx="3.5" fill="#263039"/>
+    <rect x="273" y="232" width="48" height="7" rx="3.5" fill="#20D6A2"/>
+    <text x="273" y="255" fill="#75838A" font-family="Microsoft YaHei UI, Segoe UI, sans-serif" font-size="12">28% 已用 · 3h 12m &gt; 07-04 22:10</text>
+
+    <text x="498" y="221" fill="#91A0A6" font-family="Microsoft YaHei UI, Segoe UI, sans-serif" font-size="14" font-weight="700">7天</text>
+    <text x="668" y="221" text-anchor="end" fill="#EEF5F7" font-family="Microsoft YaHei UI, Segoe UI, sans-serif" font-size="15" font-weight="700">41% 剩余</text>
+    <rect x="498" y="232" width="170" height="7" rx="3.5" fill="#263039"/>
+    <rect x="498" y="232" width="100" height="7" rx="3.5" fill="#FFB545"/>
+    <text x="498" y="255" fill="#75838A" font-family="Microsoft YaHei UI, Segoe UI, sans-serif" font-size="12">59% 已用 · 4d 8h &gt; 07-09 03:42</text>
+
+    <text x="273" y="292" fill="#91A0A6" font-family="Microsoft YaHei UI, Segoe UI, sans-serif" font-size="14" font-weight="700">上下文</text>
+    <text x="668" y="292" text-anchor="end" fill="#EEF5F7" font-family="Microsoft YaHei UI, Segoe UI, sans-serif" font-size="15" font-weight="700">42% 已用</text>
+    <rect x="273" y="303" width="395" height="7" rx="3.5" fill="#263039"/>
+    <rect x="273" y="303" width="166" height="7" rx="3.5" fill="url(#accent)"/>
+    <text x="273" y="326" fill="#75838A" font-family="Microsoft YaHei UI, Segoe UI, sans-serif" font-size="12">当前线程：示例项目 · 108,000/258,400</text>
+
+    <text x="273" y="363" fill="#91A0A6" font-family="Microsoft YaHei UI, Segoe UI, sans-serif" font-size="14" font-weight="700">今日 Token</text>
+    <text x="273" y="387" fill="#F1F7F6" font-family="Microsoft YaHei UI, Segoe UI, sans-serif" font-size="18" font-weight="700">1,248,320</text>
+    <text x="498" y="363" fill="#91A0A6" font-family="Microsoft YaHei UI, Segoe UI, sans-serif" font-size="14" font-weight="700">累计 Token</text>
+    <text x="498" y="387" fill="#F1F7F6" font-family="Microsoft YaHei UI, Segoe UI, sans-serif" font-size="18" font-weight="700">923,080,986</text>
+
+    <text x="273" y="414" fill="#718087" font-family="Microsoft YaHei UI, Segoe UI, sans-serif" font-size="12">更新时间：07-04 18:45:12 · app-server</text>
+  </g>
+</svg>
