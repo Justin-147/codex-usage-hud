@@ -1,0 +1,8 @@
+status.json
+status.json.tmp
+hud-settings.json
+hud-settings.json.tmp
+*.log
+*.tmp
+.DS_Store
+Thumbs.db
