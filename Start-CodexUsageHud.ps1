@@ -17,6 +17,9 @@ $script:SettingsPath = Join-Path $script:Root "hud-settings.json"
 $labelBase64 = "eyJ0aXRsZSI6IkNvZGV4IOeUqOmHjyIsImNvbm5lY3RpbmciOiLov57mjqXkuK0uLi4iLCJjb25uZWN0ZWQiOiLlt7Lov57mjqUiLCJkaXNjb25uZWN0ZWQiOiLmnKrov57mjqUiLCJyZWFsIjoi55yf5a6eIiwiZXN0aW1hdGUiOiLkvLDnrpciLCJxdW90YSI6IuWJqeS9memineW6piIsInByaW1hcnkiOiI15bCP5pe2Iiwic2Vjb25kYXJ5IjoiN+WkqSIsInRvZGF5Ijoi5LuK5pelIFRva2VuIiwibGlmZXRpbWUiOiLntK/orqEgVG9rZW4iLCJjb250ZXh0Ijoi5LiK5LiL5paHIiwicmVjZW50VGhyZWFkIjoi5pyA6L+R57q/56iLIiwidXBkYXRlZCI6IuabtOaWsOaXtumXtCIsInNvdXJjZSI6IuaVsOaNrua6kCIsIm5vRGF0YSI6IuaXoOaVsOaNriIsIm5vVGhyZWFkVG9rZW4iOiLmnKrmlLbliLDnur/nqIsgdG9rZW4g6YCa55+lIiwiYWNjb3VudCI6Iui0puaItyIsInBsYW4iOiLorqHliJIiLCJjbG9zZSI6IuWFs+mXrSIsInJlZnJlc2giOiLliLfmlrAiLCJlcnJvciI6IumUmeivryIsInJldHJ5aW5nIjoi6YeN6K+V5LitIiwiY3JlZGl0cyI6IumineWklumineW6piIsImxpbWl0Ijoi6aKd5bqmIiwidXNlZCI6IuW3sueUqCIsImxlZnQiOiLliankvZkiLCJyZXNldCI6IumHjee9riIsIndpbmRvdyI6Iueql+WPoyIsInNwYXJrIjoiU3Bhcmvpop3luqYifQ=="
 $script:L = [System.Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($labelBase64)) | ConvertFrom-Json
 $script:L.recentThread = [System.Text.Encoding]::UTF8.GetString([Convert]::FromBase64String("5b2T5YmN57q/56iL"))
+$script:L | Add-Member -NotePropertyName day -NotePropertyValue ([System.Text.Encoding]::UTF8.GetString([Convert]::FromBase64String("5aSp"))) -Force
+$script:L | Add-Member -NotePropertyName hour -NotePropertyValue ([System.Text.Encoding]::UTF8.GetString([Convert]::FromBase64String("5bCP5pe2"))) -Force
+$script:L | Add-Member -NotePropertyName minute -NotePropertyValue ([System.Text.Encoding]::UTF8.GetString([Convert]::FromBase64String("5YiG6ZKf"))) -Force
 $script:Sep = [string][char]0x00B7
 
 function Resolve-NodeExe {
@@ -194,6 +197,21 @@ function Format-LocalDateTimeShort {
     return (Shorten ([string]$Value) 14)
   }
 }
+function Get-WindowCaption {
+  param($Window, [string]$Fallback)
+  if ($null -eq $Window) { return $Fallback }
+  $minutes = Get-PropValue $Window "windowDurationMins"
+  if ($null -eq $minutes) { $minutes = Get-PropValue $Window "windowMinutes" }
+  try {
+    $m = [int]$minutes
+    if ($m -eq 300) { return $script:L.primary }
+    if ($m -eq 10080) { return $script:L.secondary }
+    if ($m -ge 1440 -and ($m % 1440) -eq 0) { return ("{0}{1}" -f [int]($m / 1440), $script:L.day) }
+    if ($m -ge 60 -and ($m % 60) -eq 0) { return ("{0}{1}" -f [int]($m / 60), $script:L.hour) }
+    if ($m -gt 0) { return ("{0}{1}" -f $m, $script:L.minute) }
+  } catch {}
+  return $Fallback
+}
 function Set-MeterValue {
   param($Meter, [string]$Caption, $Window)
   $Meter.Caption.Text = $Caption
@@ -359,9 +377,9 @@ $layout.Children.Add($script:AccountText) | Out-Null
 $meterGrid = [System.Windows.Controls.Grid]::new()
 $meterGrid.Margin = "0,7,0,0"
 $meterGrid.ColumnDefinitions.Add([System.Windows.Controls.ColumnDefinition]::new()) | Out-Null
-$meterGap = [System.Windows.Controls.ColumnDefinition]::new()
-$meterGap.Width = "10"
-$meterGrid.ColumnDefinitions.Add($meterGap) | Out-Null
+$script:MeterGap = [System.Windows.Controls.ColumnDefinition]::new()
+$script:MeterGap.Width = "10"
+$meterGrid.ColumnDefinitions.Add($script:MeterGap) | Out-Null
 $meterGrid.ColumnDefinitions.Add([System.Windows.Controls.ColumnDefinition]::new()) | Out-Null
 
 $script:PrimaryMeter = New-Meter $script:L.primary
@@ -439,8 +457,23 @@ function Update-Hud {
     $main = Get-PropValue $byId "codex"
     if ($null -eq $main) { $main = Get-PropValue $limits "rateLimits" }
 
-    Set-MeterValue $script:PrimaryMeter ($script:L.quota + " " + $script:Sep + " " + $script:L.primary) (Get-PropValue $main "primary")
-    Set-MeterValue $script:SecondaryMeter ($script:L.quota + " " + $script:Sep + " " + $script:L.secondary) (Get-PropValue $main "secondary")
+    $primaryWindow = Get-PropValue $main "primary"
+    $secondaryWindow = Get-PropValue $main "secondary"
+    $primaryCaption = Get-WindowCaption $primaryWindow $script:L.primary
+    $secondaryCaption = Get-WindowCaption $secondaryWindow $script:L.secondary
+
+    if ($null -eq $secondaryWindow) {
+      $script:MeterGap.Width = "0"
+      $script:SecondaryMeter.Panel.Visibility = "Collapsed"
+      [System.Windows.Controls.Grid]::SetColumnSpan($script:PrimaryMeter.Panel, 3)
+      Set-MeterValue $script:PrimaryMeter $primaryCaption $primaryWindow
+    } else {
+      $script:MeterGap.Width = "10"
+      $script:SecondaryMeter.Panel.Visibility = "Visible"
+      [System.Windows.Controls.Grid]::SetColumnSpan($script:PrimaryMeter.Panel, 1)
+      Set-MeterValue $script:PrimaryMeter $primaryCaption $primaryWindow
+      Set-MeterValue $script:SecondaryMeter $secondaryCaption $secondaryWindow
+    }
 
     $latest = Get-PropValue $status.tokenUsage "latestDailyBucket"
     $summary = Get-PropValue $status.tokenUsage "summary"

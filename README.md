@@ -1,4 +1,4 @@
-﻿# Codex 用量悬浮窗
+# Codex 用量悬浮窗
 
 [![Release](https://img.shields.io/github/v/release/Justin-147/codex-usage-hud?label=release)](https://github.com/Justin-147/codex-usage-hud/releases)
 [![Platform](https://img.shields.io/badge/platform-Windows-blue.svg)](README.md)
@@ -27,13 +27,18 @@ powershell.exe -STA -NoProfile -ExecutionPolicy Bypass -File .\Start-CodexUsageH
 
 ## 数据源
 
-- `account/rateLimits/read`：主 Codex 额度窗口，包含 5 小时和 7 天用量比例、剩余重置时间、本地重置日期时间。
+- `account/rateLimits/read`：主 Codex 额度窗口；HUD 会按 app-server 当前返回的窗口动态显示。新版 Codex 可能只返回 7 天窗口。
 - `account/usage/read`：账号 token 活动摘要，包含累计 token 和每日 token。
 - Codex Desktop 活动日志：识别当前点击/聚焦的线程；找不到焦点信号时退回最近更新线程。
 - 本地 session JSONL 的 `token_count`：当前线程的真实 token/context 数据，使用 `last_token_usage / model_context_window` 显示上下文比例，并显示对应线程。
 - `thread/tokenUsage/updated`：如果 app-server 连接收到线程 token/context 更新通知，也会即时刷新。
 
 ## 说明
+
+### 额度显示说明
+
+Codex 的额度窗口可能随版本变化。旧版本曾同时返回 5 小时和 7 天窗口；当前版本在本机观测到主 `codex` 限额只返回 7 天窗口。HUD 不再写死窗口数量，会按 `account/rateLimits/read` 实际返回的数据动态显示。
+
 
 窗口关闭时会自动关闭后台采集器。后台默认约 5 秒刷新一次，状态文件写在同目录的 `status.json`。悬浮窗会把拖动后的位置保存到 `hud-settings.json`，下次启动自动回到同一位置。
 
@@ -52,7 +57,7 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\Install-CodexUsageHudA
 ```powershell
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\Uninstall-CodexUsageHudAutostart.ps1
 ```
-紧凑版表盘默认约 320 x 214 像素，5 小时和 7 天额度并排显示，上下文和 token 信息压缩为短行；完整线程名、重置时间等保留在悬停提示中。
+紧凑版表盘默认约 320 x 214 像素，额度窗口会按 Codex 当前返回的数据动态显示；当前 Codex 版本通常只返回一周额度。上下文和 token 信息压缩为短行；完整线程名、重置时间等保留在悬停提示中。
 
 ## Release Status
 
