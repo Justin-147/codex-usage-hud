@@ -1,5 +1,14 @@
 ﻿# Changelog
 
+## v0.1.2
+
+Project metadata update.
+
+Highlights:
+
+- Adds the MIT License.
+- Adds a license badge and License section to README.
+
 ## v0.1.1
 
 Compatibility update for current Codex quota data.

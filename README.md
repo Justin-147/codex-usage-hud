@@ -4,7 +4,8 @@
 [![Platform](https://img.shields.io/badge/platform-Windows-blue.svg)](README.md)
 [![PowerShell](https://img.shields.io/badge/PowerShell-5.1%2B-blue.svg)](README.md)
 [![Codex](https://img.shields.io/badge/Codex-usage%20HUD-111827.svg)](README.md)
-[![Status](https://img.shields.io/badge/status-v0.1.1-green.svg)](CHANGELOG.md)
+[![Status](https://img.shields.io/badge/status-v0.1.2-green.svg)](CHANGELOG.md)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 一个 Windows 置顶中文悬浮窗，用 Codex app-server 和本地 session 记录读取真实数据。
 
@@ -62,7 +63,7 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\Uninstall-CodexUsageHu
 
 ## Release Status
 
-当前版本是 `v0.1.1`，适合个人 Windows 环境试用。它不是 OpenAI 官方工具，也不是 Codex Desktop 的替代品。数据读取依赖本机 Codex app-server、本地活动日志和 session JSONL；如果 Codex 内部数据格式变化，可能需要同步更新。
+当前版本是 `v0.1.2`，适合个人 Windows 环境试用。它不是 OpenAI 官方工具，也不是 Codex Desktop 的替代品。数据读取依赖本机 Codex app-server、本地活动日志和 session JSONL；如果 Codex 内部数据格式变化，可能需要同步更新。
 
 ## 功能
 
@@ -81,3 +82,7 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\Uninstall-CodexUsageHu
 - 依赖 Codex 本机 app-server 和本地 session 文件。
 - 如果 Codex 内部接口、日志路径或 session 格式变化，HUD 可能需要更新。
 - 本工具只用于显示用量和上下文信息，不修改 Codex 数据。
+
+## License
+
+MIT License. See [LICENSE](LICENSE).
